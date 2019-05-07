@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<div ng-controller="ProposalController" data-ng-init="loadProposals()">
+
+    <h2>Proposals to analyze and be aproved (or not)</h2>
+    <p>For security reasons we'll never share this data with a third party.</p>
+
+    <div class="line"></div>
+
+    <p ng-show="messageAnalyze.length" class="alert alert-success">{{messageAnalyze}}</p>
+    <p ng-show="messageDelete.length" class="alert alert-danger ">{{messageDelete}}</p>
+
+    <form name="proposals" class="needs-validation" novalidate ng-submit="loadProposals()">
+
+        <table class="table table-hover">
+            <tbody ng-repeat="proposal in proposals">
+            <tr>
+                <td>
+                    <div class="card">
+                        <div class="card-header">
+
+                            <h5>
+                                <img ng-show="proposal.sex == 'M'" alt="male" src="/assets/image/male.svg" width="25px"
+                                     height="25px">
+                                <img ng-show="proposal.sex == 'W'" alt="female" src="/assets/image/female.svg"
+                                     width="25px" height="25px">
+                                {{ proposal.name }}
+                                <small class="text-muted">({{ proposal.cpf }})</small>
+                            </h5>
+
+                            <div class="text-right" style="margin-top: -38px;">
+
+                                <button id="btnAnalyze" ng-disabled="proposal.result != 'Pending'"
+                                        ng-click="analyzeProposal(proposal)" type="button"
+                                        class="btn btn-xs btn-primary">
+                                    <img alt="analyze" src="/assets/image/analyze.svg" width="17px" height="17px"
+                                         data-toggle="tooltip" data-placement="top" title="Analyze a proposal">
+                                </button>
+                                <button id="btnDelete" ng-click="deleteProposal(proposal)" type="button"
+                                        class="btn btn-xs btn-danger">
+                                    <img alt="delete" src="/assets/image/delete.svg" width="17px" height="17px"
+                                         data-toggle="tooltip" data-placement="top" title="Delete a proposal">
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <img alt="cash" src="/assets/image/cash.svg" width="25px" height="25px"> ${{
+                                proposal.income }}
+                                <img alt="result" src="/assets/image/card.svg" width="25px" height="25px">
+                                <a ng-show="proposal.result == 'Approved'" class="text-success">{{ proposal.result
+                                    }}</a>
+                                <a ng-show="proposal.result == 'Approved'" class="text-muted">
+                                    <small>{{ proposal.limitApproved }}</small>
+                                </a>
+                                <a ng-show="proposal.result == 'Pending'" class="text-warning">{{ proposal.result }}</a>
+                                <a ng-show="proposal.result == 'Denied'" class="text-danger">{{ proposal.result }}</a>
+                                <a ng-show="proposal.result == 'Denied'" class="text-muted">
+                                    <small>{{ proposal.limitApproved }}</small>
+                                </a>
+
+                            </h6>
+                            <p class="card-text"> {{ proposal.age }} years,
+                                <a ng-show="proposal.dependents > 0"> {{ proposal.dependents }} dependents.</a>
+                                <a ng-show="proposal.dependents == 0"> no dependents. </a>
+                                <a ng-show="proposal.maritalStatus == 'S'"> Single,</a>
+                                <a ng-show="proposal.maritalStatus == 'M'"> Married,</a>
+                                <a ng-show="proposal.maritalStatus == 'D'"> Divorced,</a>
+                                <a ng-show="proposal.maritalStatus == 'W' && proposal.sex == 'M'"> Widower,</a>
+                                <a ng-show="proposal.maritalStatus == 'W' && proposal.sex == 'W'"> Widow,</a>
+                                from {{ proposal.state }}. </p>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+</html>

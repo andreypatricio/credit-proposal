@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<div ng-controller="HomeController" >
+
+    <h2>Required information for a credit proposal</h2>
+    <p>For security reasons we'll never share this data with a third party.</p>
+
+    <div class="line"></div>
+
+    <form name="home" class="needs-validation" novalidate ng-submit="submitProposal()">
+
+        <p ng-show="messageSuccess.length" class="alert alert-warning">{{messageSuccess}}</p>
+        <p ng-show="messageError.length" class="alert alert-danger ">{{messageError}}</p>
+
+            <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <label for="name">Name</label>
+                    <input type="text" ng-model="proposal.name" class="form-control" id="name" required>
+                    <div class="invalid-feedback">
+                        <span ng-show="home.$submitted && proposal.name.$error.required">Invalid name!</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md-2 mb-3">
+                    <label for="cpf">CPF</label>
+                    <input type="text" ng-model="proposal.cpf" ui-mask="999.999.999-99" class="form-control" id="cpf" required>
+                    <div class="invalid-feedback">
+                        <span ng-show="home.$submitted && proposal.cpf.$error.required">Invalid cpf!</span>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="age">Age</label>
+                    <div class="input-group">
+                        <input type="number" ng-model="proposal.age" min="0" step='1' class="form-control" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="age">years</span>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback">
+                        <span ng-show="home.$submitted && proposal.age.$error.required">Invalid age!</span>
+                    </div>
+                </div>
+            </div>
+
+        <div class="form-row">
+            <div class="col-md-2 mb-3">
+                <label for="sexMan">Sex</label>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="custom-control custom-radio">
+                    <input type="radio" ng-model="proposal.sex" value="M" id="sexMan" name="radioSex" class="custom-control-input">
+                    <label class="custom-control-label" for="sexMan">Man</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" ng-model="proposal.sex" value="W" id="sexWoman" name="radioSex" class="custom-control-input">
+                    <label class="custom-control-label" for="sexWoman">Woman</label>
+                </div>
+                <div class="invalid-feedback">
+                    <span ng-show="home.$submitted && proposal.sex.$error.required">Invalid sex!</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-2 mb-3">
+                <label for="maritalStatusSingle">Marital Status</label>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="custom-control custom-radio">
+                    <input type="radio" ng-model="proposal.maritalStatus" value="S" id="maritalStatusSingle" name="radioMaritalStatus" class="custom-control-input">
+                    <label class="custom-control-label" for="maritalStatusSingle">Single</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" ng-model="proposal.maritalStatus" value="M" id="MaritalStatusMarried" name="radioMaritalStatus" class="custom-control-input">
+                    <label class="custom-control-label" for="MaritalStatusMarried">Married</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" ng-model="proposal.maritalStatus" value="D" id="MaritalStatusDivorced" name="radioMaritalStatus" class="custom-control-input">
+                    <label class="custom-control-label" for="MaritalStatusDivorced">Divorced</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" ng-model="proposal.maritalStatus" value="W" id="MaritalStatusWid" name="radioMaritalStatus" class="custom-control-input">
+                    <label class="custom-control-label" for="MaritalStatusWid">Widow/Widower</label>
+                </div>
+                <div class="invalid-feedback">
+                    <span ng-show="home.$submitted && proposal.maritalStatus.$error.required">Invalid marital status!</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-2 mb-3">
+                <label for="dependents">Dependents</label>
+                <input type="number" ng-model="proposal.dependents"  min="0" step='1' class="form-control" id="dependents" placeholder="0" value="" required>
+                <div class="invalid-feedback">
+                    <span ng-show="home.$submitted && proposal.dependents.$error.required">Invalid dependents!</span>
+                </div>
+            </div>
+
+            <div class="col-md-2 mb-3">
+                <label for="state">State</label>
+                <select id="state" ng-model="proposal.state" class="custom-select">
+                    <option value="AC"> Acre (AC)</option>
+                    <option value="AL"> Alagoas (AL)</option>
+                    <option value="AP"> Amapá (AP)</option>
+                    <option value="AM"> Amazonas (AM)</option>
+                    <option value="BA"> Bahia (BA)</option>
+                    <option value="CE"> Ceará (CE)</option>
+                    <option value="DF"> Distrito Federal (DF)</option>
+                    <option value="ES"> Espírito Santo (ES)</option>
+                    <option value="GO"> Goiás (GO)</option>
+                    <option value="MA"> Maranhão (MA)</option>
+                    <option value="MT"> Mato Grosso (MT)</option>
+                    <option value="MS"> Mato Grosso do Sul (MS)</option>
+                    <option value="MG"> Minas Gerais (MG)</option>
+                    <option value="PA"> Pará (PA)</option>
+                    <option value="PB"> Paraíba (PB)</option>
+                    <option value="PR"> Paraná (PR)</option>
+                    <option value="PE"> Pernambuco (PE)</option>
+                    <option value="PI"> Piauí (PI)</option>
+                    <option value="RJ"> Rio de Janeiro (RJ)</option>
+                    <option value="RN"> Rio Grande do Norte (RN)</option>
+                    <option value="RS"> Rio Grande do Sul (RS)</option>
+                    <option value="RO"> Rondônia (RO)</option>
+                    <option value="RR"> Roraima (RR)</option>
+                    <option value="SC"> Santa Catarina (SC)</option>
+                    <option value="SP"> São Paulo (SP)</option>
+                    <option value="SE"> Sergipe (SE)</option>
+                    <option value="TO"> Tocantins (TO)</option>
+                </select>
+                <div class="invalid-feedback">
+                    <span ng-show="home.$submitted && proposal.state.$error.required">Invalid state!</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-2 mb-3">
+                <label for="income">Income</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend">$</span>
+                    </div>
+                    <input type="number" ng-model="proposal.income" class="form-control" min="0.00" step='0.01' id="income" placeholder="0,00"
+                           aria-describedby="inputGroupPrepend" required>
+                    <div class="invalid-feedback">
+                        <span ng-show="home.$submitted && proposal.income.$error.required">Invalid income!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <button id="submitProposal" class="btn btn-primary" ng-disabled="home.$invalid" type="submit">Submit</button>
+
+    </form>
+
+</div>
+</html>
